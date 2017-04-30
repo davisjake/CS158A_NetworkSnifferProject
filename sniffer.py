@@ -35,9 +35,9 @@ def sniffer():
 					print("Error: %s is not a digit" % timeToSniff)
 			elif(howToSniff == 3):
 				numPackets = input("How many packets would you like to sniff? ")
-				timeToSniff = input("How longwould you like to sniff packets? ")
+				timeToSniff = input("How long would you like to sniff packets? ")
 				if(numPackets.isdigit() and timeToSniff.isdigit()):
-					packetsSniffed = sniff(count=numPackets, timeout=timeToSniff)
+					packetsSniffed = sniff(count=int(numPackets), timeout=int(timeToSniff))
 					hasntSniffed = False
 				else:
 					print("Error: %s or %s is not a digit" % numPackets, timeToSniff)
