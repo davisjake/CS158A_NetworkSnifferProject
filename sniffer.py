@@ -13,10 +13,19 @@ def customOutput(packet):
 	packetCount += 1
 	return "Packet #%s: [Type] %s/%s [Source] %s ===> [Destination] %s" % (packetCount, packet.getlayer(1).name, packet.getlayer(2).name, packet[0][1].src, packet[0][1].dst)
 
+def customOutput2(packet):
+	global packetCount
+	packetCount += 1
+	print("Packet #", packetCount)
+	packet.show()
+	print("\n")
+
+
+
 # Sniffer will ask user how they want packets over netowork scanned
 # User can choose to:
-#	1 Choose how many pakcets to sniff
-#	2 Choose how long to sniff  pakcets
+#	1 Choose how many packets to sniff
+#	2 Choose how long to sniff packets
 #	3 Choose both how many packets to sniff or how long to sniff  packets
 #		* Option 3 will stop sniffing when either time is up or number of packets to sniff is reached
 def sniffer():
@@ -29,8 +38,8 @@ def sniffer():
 		while not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 			print("Error: %s is an invalid sniffing option, choose a valid option (1, 2, or 3)." % howToSniff)
 			howToSniff = input("Enter new choice: ")
-	outputSetting = input("\nOutput Settings:\n\t1: Raw Output\n\t2: Readable Output\nOutput Choice: ")  # Ask user if they want raw output or an easier to read output
-	if not outputSetting.isdigit() or int(outputSetting) > 2 or int(outputSetting) < 1:
+	outputSetting = input("\nOutput Settings:\n\t1: Raw Output\n\t2: Readable Output\n\t3: Detailed Output\n Output Choice: ")  # Ask user if they want raw output or an easier to read output
+	if not outputSetting.isdigit() or int(outputSetting) > 3 or int(outputSetting) < 1:
 		while not outputSetting.isdigit() or int(outputSetting) > 2 or int(outputSetting) < 1:
 			print("Error: %s is an invalid output setting option, choose a valid option (1 or 2)." % outputSetting)
 			outputSetting = input("Enter new output setting option: ")
@@ -42,12 +51,14 @@ def sniffer():
 			print("\n...")
 			numPackets = input("\nHow many packets would you like to sniff? ")
 			if numPackets.isdigit():
-				# Give users a choice on how to output the sniffed packet
+				# Output style depending on user input
 				if int(outputSetting) == 1:
 					packetsSniffed = sniff(count=int(numPackets))
 					packetsSniffed.nsummary()
 				elif int(outputSetting) == 2:
 					packetsSniffed = sniff(count=int(numPackets), prn=customOutput)
+				elif int(outputSetting) == 3:
+					packetsSniffed = sniff(count=int(numPackets), prn=customOutput2)
 				print("\n...")
 				packetCount = 0
 				hasntSniffed = False
@@ -65,7 +76,7 @@ def sniffer():
 				print("Error: %s is not a digit" % timeToSniff)
 				howToSniff = str(howToSniff)
 			if(timeToSniff.isdigit()):
-				# Give users a choice on how to output the sniffed packet
+				# Output style depending on user input
 				if int(outputSetting) == 1:
 					packetsSniffed = sniff(timeout=int(timeToSniff))
 					packetsSniffed.nsummary()
@@ -80,7 +91,7 @@ def sniffer():
 			numPackets = input("\nHow many packets would you like to sniff? ")
 			timeToSniff = input("How long would you like to sniff packets? ")
 			if(numPackets.isdigit() and timeToSniff.isdigit()):
-				# Give users a choice on how to output the sniffed packet
+				# Output style depending on user input
 				if int(outputSetting) == 1:
 					packetsSniffed = sniff(count=int(numPackets), timeout=int(timeToSniff))
 					packetsSniffed.nsummary()
@@ -104,7 +115,7 @@ def main():
 		print("\nWould you like to-\n\tSniff: Sniff packets\n\tQuit: quit packet sniffer?")
 		sniffOrQuit = input("Enter your choice [Sniff or Quit]: ")
 		if sniffOrQuit.lower() == "sniff":
-			packets = sniffer()
+			sniffer() #packets =
 			#getDetails = True
 			#while(getDetails):
 				#getDetails = input("Would you like to get more information about any of the sniffed packets?(Pick 1 or 2)\n\t1: Yes\n\t2: No")
