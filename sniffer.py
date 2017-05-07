@@ -33,14 +33,14 @@ def sniffer():
 	#else: filtered = False			//Need to implement filtering (Use sniff(filter="UserDefinedFilter")
 	hasntSniffed = True		# Loop while method hasn't sniffed
 	print("\nWould you like to-\n\t1: Choose how many packets to sniff\n\t2: Choose how long sniffer runs\n\t3: Choose both how many packets to sniff and how long")
-	howToSniff = input("Enter your choice 1 [# of Packets], 2 [Amount of Time], or 3 [Both Options(Sniffer end after either option is acheived)]: ")
+	howToSniff = input("Enter your choice 1 [# of Packets], 2 [Amount of Time], or 3 [Both Options(Stops when either option is acheived)]: ")
 	if not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 		while not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 			print("Error: %s is an invalid sniffing option, choose a valid option (1, 2, or 3)." % howToSniff)
 			howToSniff = input("Enter new choice: ")
 	outputSetting = input("\nOutput Settings:\n\t1: Raw Output\n\t2: Readable Output\n\t3: Detailed Output\n Output Choice: ")  # Ask user if they want raw output or an easier to read output
 	if not outputSetting.isdigit() or int(outputSetting) > 3 or int(outputSetting) < 1:
-		while not outputSetting.isdigit() or int(outputSetting) > 2 or int(outputSetting) < 1:
+		while not outputSetting.isdigit() or int(outputSetting) > 3 or int(outputSetting) < 1:
 			print("Error: %s is an invalid output setting option, choose a valid option (1 or 2)." % outputSetting)
 			outputSetting = input("Enter new output setting option: ")
 	while hasntSniffed:
