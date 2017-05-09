@@ -22,7 +22,7 @@ def customOutput2(packet):
 
 def getHowToSniff():
 	print("\nWould you like to-\n\t1: Choose how many packets to sniff\n\t2: Choose how long sniffer runs\n\t3: Choose both how many packets to sniff and how long")
-	howToSniff = input("Enter your choice 1 [# of Packets], 2 [Amount of Time], or 3 [Both Options(Stops when either option is acheived)]: ")
+	howToSniff = input("Enter your choice 1, 2, or 3(Stops when either option is acheived): ")
 	if not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 		while not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 			print("Error: %s is an invalid sniffing option, choose a valid option (1, 2, or 3)." % howToSniff)
@@ -33,7 +33,7 @@ def getOutputSettings():
 	outputSetting = input("\nSelect Output Settings:\n\t1: Raw Output\n\t2: Readable Output (Only IP Connections)\n\t3: Detailed Output\n Output Choice: ")  # Ask user if they want raw output or an easier to read output
 	if not outputSetting.isdigit() or int(outputSetting) > 3 or int(outputSetting) < 1:
 		while not outputSetting.isdigit() or int(outputSetting) > 3 or int(outputSetting) < 1:
-			print("Error: %s is an invalid output setting option, choose a valid option (1 or 2)." % outputSetting)
+			print("Error: %s is an invalid output setting option, choose a valid option (1, 2, or 3)." % outputSetting)
 			outputSetting = input("Enter new output setting option: ")
 	return outputSetting
 	
@@ -129,13 +129,26 @@ def main():
 		sniffOrQuit = input("Enter your choice [Sniff or Quit]: ")
 		if sniffOrQuit.lower() == "sniff":
 			print("\n...Choose Sniffer Settings...")
-			sniffer() #packets =
+			packets = sniffer()
 			print("\n...Sniffing Done...")
-			#getDetails = True
-			#while(getDetails):
-				#getDetails = input("Would you like to get more information about any of the sniffed packets?(Pick 1 or 2)\n\t1: Yes\n\t2: No")
-				# Need to implement getting details about already sniffed packets.
-				# Use packets, and ask repeatedly ask User what packet and display until user says to stop
+			wantDetails = True
+			while(wantDetails):
+				# Getting details about already sniffed packets.
+				wantDetails = input("Would you like to get more information about any of the sniffed packets?\n\t1: Yes\n\t2: No\n(Pick 1 or 2): ")
+				if not wantDetails.isdigit() or int(wantDetails) > 2 or int(wantDetails) < 1:
+					while not wantDetails.isdigit() or int(wantDetails) > 2 or int(wantDetails) < 1:
+						print("Error: %s is an invalid option, choose a valid option (1 or 2)." % wantDetails)
+						wantDetails = input("Enter new output setting option: ")
+				if int(wantDetails) == 1:
+					whatPacket = input("Enter the packet # that you want details on(Range 1 - %d: " % len(packets))
+					if not whatPacket.isdigit() or int(whatPacket) > len(packets) or int(whatPacket) < 1:
+						while not whatPacket.isdigit() or int(whatPacket) > len(packets) or int(whatPacket) < 1:
+							print("Error: %s is an invalid option, choose a valid option (range 1 to %d)." % (whatPacket, len(packets)))
+							whatPacket = input("Enter new output setting option: ")
+					packets[int(whatPacket)].show()
+				else:
+					wantDetails = False
+
 		elif sniffOrQuit.lower() == "quit":
 			print("\nNetwork Sniffer has been terminated.")
 			exist = False
