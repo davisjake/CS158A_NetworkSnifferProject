@@ -22,7 +22,7 @@ def customOutput2(packet):
 
 def getHowToSniff():
 	print("\nWould you like to-\n\t1: Choose how many packets to sniff\n\t2: Choose how long sniffer runs\n\t3: Choose both how many packets to sniff and how long")
-	howToSniff = input("Enter your choice 1, 2, or 3(Stops when either option is acheived): ")
+	howToSniff = input("Enter your choice 1, 2, or 3 (Stops when either option is achieved): ")
 	if not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 		while not howToSniff.isdigit() or int(howToSniff) > 3 or int(howToSniff) < 1:
 			print("Error: %s is an invalid sniffing option, choose a valid option (1, 2, or 3)." % howToSniff)
@@ -122,10 +122,10 @@ def sniffer():
 
 # Main loop of program, user can either sniff or quit program
 def main():
-	print("Network Sniffer")
+	print("--------------------Network Sniffer--------------------")
 	exist = True
 	while exist:
-		print("\nWould you like to-\n\tSniff: Sniff packets\n\tQuit: quit packet sniffer?")
+		print("\nWould you like to-\n\tSniff: Sniff packets\n\tQuit: Quit packet sniffer?")
 		sniffOrQuit = input("Enter your choice [Sniff or Quit]: ")
 		if sniffOrQuit.lower() == "sniff":
 			print("\n...Choose Sniffer Settings...")
@@ -141,7 +141,7 @@ def main():
 						print("Error: %s is an invalid option, choose a valid option (1 or 2)." % wantDetails)
 						wantDetails = input("Enter new output setting option: ")
 				if int(wantDetails) == 1:
-					whatPacket = input("Enter the packet # that you want details on(Range 1 - %d: " % len(packets))
+					whatPacket = input("Enter the packet # that you want details on (Range 1 - %d): " % len(packets))
 					if not whatPacket.isdigit() or int(whatPacket) > len(packets) or int(whatPacket) < 1:
 						while not whatPacket.isdigit() or int(whatPacket) > len(packets) or int(whatPacket) < 1:
 							print("Error: %s is an invalid option, choose a valid option (range 1 to %d)." % (whatPacket, len(packets)))
