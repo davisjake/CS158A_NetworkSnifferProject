@@ -145,7 +145,7 @@ def main():
 						while not whatPacket.isdigit() or int(whatPacket) > len(packets) or int(whatPacket) < 1:
 							print("Error: %s is an invalid option, choose a valid option (range 1 to %d)." % (whatPacket, len(packets)))
 							whatPacket = input("Enter new output setting option: ")
-					packets[int(whatPacket)].show()
+					packets[int(whatPacket)-1].show()
 				else:
 					wantDetails = False
 
