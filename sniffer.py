@@ -6,7 +6,7 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 # import scapy library
 from scapy.all import *
 
-## Customize the output to be more readable
+# Customize the output to be more readable
 packetCount = 0
 def customOutput(packet):
 	global packetCount
@@ -130,7 +130,8 @@ def main():
 		if sniffOrQuit.lower() == "sniff":
 			print("\n...Choose Sniffer Settings...")
 			packets = sniffer()
-			print("\n...Sniffing Done...")
+			wrpcap('sniffed.pcap', packets)
+			print("\n...Sniffing Done...")			
 			wantDetails = True
 			while(wantDetails):
 				# Getting details about already sniffed packets.
