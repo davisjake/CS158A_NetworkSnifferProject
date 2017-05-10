@@ -109,7 +109,7 @@ def sniffer():
 				elif int(outputSetting) == 2:
 					packetsSniffed = sniff(count=int(numPackets), filter="ip", timeout=int(timeToSniff), prn=customOutput)
 				else:
-					packetsSniffed = sniff(count=int(numPackets), prn=customOutput2)
+					packetsSniffed = sniff(count=int(numPackets), timeout=int(timeToSniff), prn=customOutput2)
 				packetCount = 0
 				hasntSniffed = False
 			else:
